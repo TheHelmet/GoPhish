@@ -59,7 +59,7 @@ resource "aws_security_group" "phish" {
 resource "aws_instance" "Phisherman1" {
   ami           = "ami-03cbc6cddb06af2c2"
   instance_type = "t2.micro"
-  key_name      = var.ec2_ssh_key_name
+  key_name      = var.key_pair
   subnet_id     = aws_subnet.phishnet.id
   tags = {
     Name = "GoPhish1"

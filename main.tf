@@ -70,7 +70,7 @@ resource "aws_instance" "Phisherman1" {
     volume_size           = 128
     delete_on_termination = true
   }
-  user_data                   = templatefile"cloud-init.yaml"
+  user_data                   = "cloud-init.yaml"
   vpc_security_group_ids      = [aws_security_group.phish.id]
   associate_public_ip_address = true
 }

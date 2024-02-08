@@ -1,4 +1,4 @@
-ame: Terraform Validate
+Name: Terraform Validate
 
 on:
   workflow_dispatch:

@@ -1,0 +1,10 @@
+#cloud-config
+timezone: ${timezone}
+ssh_pwauth: True
+
+packages:
+  - git
+  - docker
+
+runcmd:
+  - docker pull gophish/gophish

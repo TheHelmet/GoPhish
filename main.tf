@@ -58,7 +58,7 @@ resource "aws_security_group" "phish" {
 
 resource "aws_instance" "Phisherman1" {
   ami           = "ami-03cbc6cddb06af2c2"
-  instance_type = t2.micro
+  instance_type = "t2.micro"
   key_name      = var.ec2_ssh_key_name
   subnet_id     = aws_subnet.phishnet.id
   tags = {
@@ -71,6 +71,6 @@ resource "aws_instance" "Phisherman1" {
     delete_on_termination = true
   }
   user_data                   = templatefile("cloud-init.yaml")
-  vpc_security_group_ids      = [aws_security_group.tpot.id]
+  vpc_security_group_ids      = [aws_security_group.phish.id]
   associate_public_ip_address = true
 }

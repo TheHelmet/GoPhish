@@ -6,3 +6,4 @@ output "instance_public_ip" {
 output "instance_url" {
   value = "http://${aws_instance.Phisherman1.public_ip}"
   description = "URL to access the NGINX server on the EC2 instance"
+}

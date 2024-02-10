@@ -45,7 +45,7 @@ resource "aws_security_group" "phish" {
     cidr_blocks = var.admin_ip
 }
   ingress {
-    from_port   = 
+    from_port   = 0
     to_port     = 3333
     protocol    = "tcp"
     cidr_blocks = var.admin_ip

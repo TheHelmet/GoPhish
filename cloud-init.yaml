@@ -8,3 +8,4 @@ packages:
 
 runcmd:
   - docker pull gophish/gophish
+  - docker run gophish

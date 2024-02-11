@@ -15,23 +15,21 @@ resource "aws_vpc_security_group_rule" "outbound_all" {
 }
 
 
-resource "aws_vpc_security_group_rule" "ssh_inbound_my_ip" {
-  type = "ingress"
+resource "aws_vpc_security_group_ingress_rule" "ssh_inbound_my_ip" {
   security_group_id = aws_security_group.phish.id
-  description       = "SSH Inbound from runner and my OP"
+  description       = "SSH Inbound from my IP"
   from_port         = 22
-  cidr_blocks        = [var.admin_ip]
+  cidr_ipv4         = "${coalesce(var.my_ip, "192.168.0.1")}/32"
   to_port           = 22
   ip_protocol       = "tcp"
 }
 
 
-resource "aws_vpc_security_group_rule" "mgmt_inbound_my_ip" {
-  type = "ingress"
+resource "aws_vpc_security_group_ingress_rule" "mgmt" {
   security_group_id = aws_security_group.phish.id
-  description       = "SSH Inbound from runner and my OP"
+  description       = "Mgmt Inbound from my IP"
   from_port         = 3333
-  cidr_blocks        = [var.admin_ip]
-  to_port           = 333
+  cidr_ipv4         = "${coalesce(var.my_ip, "192.168.0.1")}/32"
+  to_port           = 3333
   ip_protocol       = "tcp"
 }

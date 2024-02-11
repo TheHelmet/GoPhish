@@ -8,9 +8,6 @@ resource "aws_vpc" "vpc_phishnet" {
 }
 
 resource "aws_internet_gateway" "gateway" {
- depends_on = [
-    aws_internet_gateway.gw
-  ]
  vpc_id = aws_vpc.vpc_phishnet.id
   tags = {
     Name = "vpc-phishnet-igw"
@@ -18,6 +15,9 @@ resource "aws_internet_gateway" "gateway" {
 }
 
 resource "aws_subnet" "phishnet" {
+  depends_on = [
+    aws_internet_gateway.gateway
+  ]
   vpc_id     = aws_vpc.vpc_phishnet.id
   cidr_block = "192.168.1.0/24" # This is a subset of the VPC's CIDR block
   tags = {

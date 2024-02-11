@@ -15,16 +15,14 @@ write_files:
           volumes:
             - "./gophish-data:/gophish" # Maps the local folder to the container for data persistence
           restart: always
+          
+        mailcatcher:
+          image: dockage/mailcatcher:0.9.0
+          restart: on-failure
+          ports:
+            - "1080:1080"
+            - "1025:1025"
 
-          version: "3"
-
-    services:
-     mailcatcher:
-    restart: on-failure
-    image: dockage/mailcatcher:0.9.0
-    ports:
-    - "1080:1080"
-    - "1025:1025"
 
 runcmd:
   # Install Docker

@@ -2,10 +2,27 @@
 timezone: ${timezone}
 ssh_pwauth: True
 
-packages:
-  - git
-  - docker
+write_files:
+  - path: /root/docker-compose.yml
+    content: |
+      version: '3.8'
+      services:
+        gophish:
+          image: gophish/gophish
+          ports:
+            - "3333:3333" # Port for the admin server
+            - "80:80"     # Port for the phishing server
+          volumes:
+            - "./gophish-data:/gophish" # Maps the local folder to the container for data persistence
+          restart: always
 
 runcmd:
-  - docker pull gophish/gophish
-  - docker run gophish
+  # Install Docker
+  - curl -fsSL https://get.docker.com -o get-docker.sh
+  - sh get-docker.sh
+  # Install Docker Compose
+  - curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - chmod +x /usr/local/bin/docker-compose
+  # Start Docker Compose
+  - cd /root
+  - docker-compose up -d

@@ -1,4 +1,4 @@
-variable "my.ip" {
+variable "my_ip" {
   default     = "144.6.169.11"
   description = "admin IP addresses in CIDR format"
 }

@@ -6,7 +6,7 @@ resource "aws_security_group" "phish" {
 
 # GENERAL
 
-resource "aws_vpc_security_group_ergress_rule" "outbound_all" {
+resource "aws_vpc_security_group_egress_rule" "outbound_all" {
   type = "egress"
   security_group_id = aws_security_group.phish.id
   description       = "all outbound"

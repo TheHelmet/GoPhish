@@ -8,7 +8,10 @@ resource "aws_vpc" "vpc_phishnet" {
 }
 
 resource "aws_internet_gateway" "gateway" {
-  vpc_id = aws_vpc.vpc_phishnet.id
+ depends_on = [
+    aws_internet_gateway.gw
+  ]
+ vpc_id = aws_vpc.vpc_phishnet.id
   tags = {
     Name = "vpc-phishnet-igw"
   }
@@ -22,8 +25,11 @@ resource "aws_subnet" "phishnet" {
   }
 }
 
-resource "aws_route" "internet_access" {
-  route_table_id         = aws_route_table.my_route_table.id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.my_igw.id
+resource "aws_default_route_table" "route" {
+  default_route_table_id = aws_vpc.vpc_phishnet.default_route_table_id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gateway.id
+  }
 }

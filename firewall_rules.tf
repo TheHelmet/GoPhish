@@ -32,3 +32,12 @@ resource "aws_vpc_security_group_ingress_rule" "mgmt" {
   to_port           = 3333
   ip_protocol       = "tcp"
 }
+
+resource "aws_vpc_security_group_ingress_rule" "mgmt" {
+  security_group_id = aws_security_group.phish.id
+  description       = "Mgmt Inbound from my IP"
+  from_port         = 1080
+  cidr_ipv4         = "${coalesce(var.my_ip, "192.168.0.1")}/32"
+  to_port           = 1080
+  ip_protocol       = "tcp"
+}

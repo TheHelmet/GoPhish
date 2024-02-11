@@ -16,12 +16,7 @@ write_files:
             - "./gophish-data:/gophish" # Maps the local folder to the container for data persistence
           restart: always
           
-        mailcatcher:
-          image: dockage/mailcatcher:0.9.0
-          restart: on-failure
-          ports:
-            - "1080:1080"
-            - "1025:1025"
+  
 
 
 runcmd:
@@ -34,3 +29,5 @@ runcmd:
   # Start Docker Compose
   - cd /root
   - docker-compose up -d
+  - apt-get update
+  - apt-get install -y postfix
